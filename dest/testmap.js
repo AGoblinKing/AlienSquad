@@ -6,14 +6,26 @@ var __extends = this.__extends || function (d, b) {
     d.prototype = new __();
 };
 define(["require", "exports"], function(require, exports) {
-    // need a tile loader
-    var texture = THREE.ImageUtils.loadTexture("assets/textures/tilemap.png");
-    texture.anisotropy = 16;
-    texture.repeat.set(1 / 5, 1);
-    texture.offset.set(1 / 5, 0);
+    var Tiles = (function () {
+        function Tiles(path) {
+            var count = 5;
 
-    var material = new THREE.MeshBasicMaterial({ map: texture });
-    var geom = new THREE.BoxGeometry(1, 1, 1);
+            this.tiles = [];
+
+            for (var x = 1; x < count; x++) {
+                var texture = THREE.ImageUtils.loadTexture(path);
+                texture.anisotropy = 16;
+                texture.repeat.set(1 / count, 1);
+                texture.offset.set(x / count, 0);
+
+                this.tiles.push(new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ map: texture })));
+            }
+        }
+        Tiles.prototype.random = function () {
+            return this.tiles[Math.floor(Math.random() * this.tiles.length)].clone();
+        };
+        return Tiles;
+    })();
 
     var TestMap = (function (_super) {
         __extends(TestMap, _super);
@@ -21,13 +33,14 @@ define(["require", "exports"], function(require, exports) {
             if (typeof width === "undefined") { width = 10; }
             if (typeof height === "undefined") { height = 10; }
             _super.call(this);
+            this.tiles = new Tiles("assets/textures/tilemap.png");
 
             var cube;
             var z = 0;
 
             for (var x = 0; x < width; x++) {
                 for (var y = 0; y < height; y++) {
-                    cube = new THREE.Mesh(geom, material);
+                    cube = this.tiles.random();
                     z = (x === 0 || y === 0 || y === height - 1 || x === width - 1) ? 1 : 0;
                     cube.position.set(x, z, y);
                     this.add(cube);

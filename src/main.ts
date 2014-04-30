@@ -2,7 +2,7 @@
 import Utils = require("utils");
 import TestMap = require("testmap");
 
-var renderer:THREE.WebGLRenderer = new THREE.WebGLRenderer(),
+var renderer:THREE.WebGLRenderer = new THREE.WebGLRenderer({antialias:true}),
     camera:THREE.PerspectiveCamera = new THREE.PerspectiveCamera(
         45, 
         window.innerWidth/window.innerHeight, 

@@ -1,5 +1,5 @@
 define(["require", "exports", "utils", "testmap"], function(require, exports, Utils, TestMap) {
-    var renderer = new THREE.WebGLRenderer(), camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000), scene = new THREE.Scene(), controls = new THREE.OrbitControls(camera);
+    var renderer = new THREE.WebGLRenderer({ antialias: true }), camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000), scene = new THREE.Scene(), controls = new THREE.OrbitControls(camera);
 
     // Scene
     scene.add(camera);
