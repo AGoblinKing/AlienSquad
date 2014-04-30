@@ -2,9 +2,7 @@
 
 class Tiles { 
     tiles:THREE.Mesh[];
-    constructor(path:string) {
-        var count = 5;
-        
+    constructor(path:string, count:number) {
         this.tiles = [];
         
         for(var x = 1; x < count; x++) {
@@ -15,7 +13,7 @@ class Tiles {
 
             this.tiles.push(new THREE.Mesh(
                 new THREE.BoxGeometry(1,1,1),
-                new THREE.MeshBasicMaterial({map:texture})
+                new THREE.MeshBasicMaterial({map:texture, color: 0xFFFFFF})
             ));
         }
     }
@@ -25,7 +23,7 @@ class Tiles {
 }
 
 class TestMap extends THREE.Object3D {
-    private tiles = new Tiles("assets/textures/tilemap.png");
+    private tiles:Tiles = new Tiles("assets/textures/tilemap.png", 5);
     constructor(width = 10, height = 10) {
         super();
         

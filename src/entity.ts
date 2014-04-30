@@ -1,22 +1,44 @@
 /// <reference path="../ext/three.d.ts" />
 import net = require("net");
 
-class Entity {
+var texture = THREE.ImageUtils.loadTexture( "assets/textures/wizard.png" );
+
+var material = new THREE.SpriteMaterial( { map: texture, color: 0xdfdfff, fog: true } );
+
+class Entity extends THREE.Sprite {
     // Meta Programming wtb 
-    
-    get position():THREE.Vector3 { return this.object3d.position; }
-    get rotation():THREE.Euler { return this.object3d.rotation; }
-    
     uuid: String;
-    dirty: Boolean;
-    object3d: THREE.Object3D;
-    private material: THREE.Material;
+    dirty: Boolean;  
+    keys: any = {};
     
-    constructor() {}
+    constructor() {
+        super(material);
+        
+        document.body.addEventListener("keydown", (e) => {
+            this.keys[String.fromCharCode(e.which).toLowerCase()]  = true;
+        });
+        document.body.addEventListener("keyup", (e) => {
+            this.keys[String.fromCharCode(e.which).toLowerCase()]  = false;
+        });
+    }
 
     update(delta: Number) {
         if(this.dirty) { 
             
+        }
+        
+        if(this.keys.w) {
+            this.position.z += -0.05;
+        } else if(this.keys.s) {
+            this.position.z += 0.05;
+        } 
+        
+        if(this.keys.a) {
+            this.scale.x = -1;
+            this.position.x += -0.05;
+        } else if (this.keys.d) {
+            this.scale.x = 1;
+            this.position.x += 0.05;
         }
     }
     
@@ -40,4 +62,5 @@ class Entity {
         }
     }
 }
+
 export = Entity;

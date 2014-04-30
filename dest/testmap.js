@@ -7,9 +7,7 @@ var __extends = this.__extends || function (d, b) {
 };
 define(["require", "exports"], function(require, exports) {
     var Tiles = (function () {
-        function Tiles(path) {
-            var count = 5;
-
+        function Tiles(path, count) {
             this.tiles = [];
 
             for (var x = 1; x < count; x++) {
@@ -18,7 +16,7 @@ define(["require", "exports"], function(require, exports) {
                 texture.repeat.set(1 / count, 1);
                 texture.offset.set(x / count, 0);
 
-                this.tiles.push(new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ map: texture })));
+                this.tiles.push(new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ map: texture, color: 0xFFFFFF })));
             }
         }
         Tiles.prototype.random = function () {
@@ -33,7 +31,7 @@ define(["require", "exports"], function(require, exports) {
             if (typeof width === "undefined") { width = 10; }
             if (typeof height === "undefined") { height = 10; }
             _super.call(this);
-            this.tiles = new Tiles("assets/textures/tilemap.png");
+            this.tiles = new Tiles("assets/textures/tilemap.png", 5);
 
             var cube;
             var z = 0;
