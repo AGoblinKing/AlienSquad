@@ -1,20 +1,19 @@
 /// <reference path="../ext/three.d.ts" />
 import net = require("net");
 
-var texture = THREE.ImageUtils.loadTexture( "assets/textures/wizard.png" );
-
-var material = new THREE.SpriteMaterial( { map: texture, color: 0xdfdfff, fog: true } );
+var texture = THREE.ImageUtils.loadTexture( "assets/textures/cat.png" );
+var material = new THREE.SpriteMaterial({ map: texture, color: 0xdfdfff, fog: true } );
 
 class Entity extends THREE.Sprite {
-    // Meta Programming wtb 
-    uuid: String;
+    // Meta Programming wtb  
+    uuid: String; 
     dirty: Boolean;  
     keys: any = {};
     
     constructor() {
         super(material);
         
-        document.body.addEventListener("keydown", (e) => {
+        document.body.addEventListener("keydown", (e) => { 
             this.keys[String.fromCharCode(e.which).toLowerCase()]  = true;
         });
         document.body.addEventListener("keyup", (e) => {

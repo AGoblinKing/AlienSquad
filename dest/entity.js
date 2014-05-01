@@ -5,8 +5,7 @@ var __extends = this.__extends || function (d, b) {
     d.prototype = new __();
 };
 define(["require", "exports", "net"], function(require, exports, net) {
-    var texture = THREE.ImageUtils.loadTexture("assets/textures/wizard.png");
-
+    var texture = THREE.ImageUtils.loadTexture("assets/textures/cat.png");
     var material = new THREE.SpriteMaterial({ map: texture, color: 0xdfdfff, fog: true });
 
     var Entity = (function (_super) {
