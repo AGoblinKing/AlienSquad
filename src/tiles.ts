@@ -71,7 +71,7 @@ export class TileMap extends THREE.Object3D {
     }
     
     loadRAW(rawString:string) {
-        var rawMap:string[][] = rawString.split("\r\n").map((row) => {
+        var rawMap:string[][] = rawString.split("\n").map((row) => {
             return row.split("");    
         });
         
@@ -79,7 +79,7 @@ export class TileMap extends THREE.Object3D {
     }
     
     loadCSV(csvString:string) {
-        var rawMap:string[][] = csvString.split("\r\n").map((row) => {
+        var rawMap:string[][] = csvString.split("\n").map((row) => {
             return row.split(",");    
         });
         
@@ -125,13 +125,14 @@ export class TileMap extends THREE.Object3D {
         var loader = new XMLHttpRequest();
         loader.open("GET", this.mapPath);
         loader.addEventListener("load", () => {
-            var ext = this.mapPath.split(".")[1];
+            var ext = this.mapPath.split(".")[1],
+                sanitized = loader.responseText.replace(/\r/g, "");
             switch(ext) {
                 case "CSV":
-                    this.loadCSV(loader.responseText);
+                    this.loadCSV(sanitized);
                     break;
                 default:
-                    this.loadRAW(loader.responseText);
+                    this.loadRAW(sanitized);
             }
             
         });

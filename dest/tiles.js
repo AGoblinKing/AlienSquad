@@ -76,7 +76,7 @@ define(["require", "exports"], function(require, exports) {
             });
         }
         TileMap.prototype.loadRAW = function (rawString) {
-            var rawMap = rawString.split("\r\n").map(function (row) {
+            var rawMap = rawString.split("\n").map(function (row) {
                 return row.split("");
             });
 
@@ -84,7 +84,7 @@ define(["require", "exports"], function(require, exports) {
         };
 
         TileMap.prototype.loadCSV = function (csvString) {
-            var rawMap = csvString.split("\r\n").map(function (row) {
+            var rawMap = csvString.split("\n").map(function (row) {
                 return row.split(",");
             });
 
@@ -133,13 +133,13 @@ define(["require", "exports"], function(require, exports) {
             var loader = new XMLHttpRequest();
             loader.open("GET", this.mapPath);
             loader.addEventListener("load", function () {
-                var ext = _this.mapPath.split(".")[1];
+                var ext = _this.mapPath.split(".")[1], sanitized = loader.responseText.replace(/\r/g, "");
                 switch (ext) {
                     case "CSV":
-                        _this.loadCSV(loader.responseText);
+                        _this.loadCSV(sanitized);
                         break;
                     default:
-                        _this.loadRAW(loader.responseText);
+                        _this.loadRAW(sanitized);
                 }
             });
             loader.send();
