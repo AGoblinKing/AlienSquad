@@ -1,7 +1,8 @@
 /// <reference path="../ext/three.d.ts" />
 import Utils = require("utils");
-import TestMap = require("testmap");
+import Tiles = require("tiles");
 import Entity = require("entity");
+import Title = require("maps/title");
 
 var renderer:THREE.WebGLRenderer = new THREE.WebGLRenderer({antialias:true}),
     camera:THREE.PerspectiveCamera = new THREE.PerspectiveCamera(
@@ -10,23 +11,22 @@ var renderer:THREE.WebGLRenderer = new THREE.WebGLRenderer({antialias:true}),
         0.1, 
         10000
     ),
-    scene:THREE.Scene = new THREE.Scene(),
-    controls = new THREE.OrbitControls(camera);
+    scene:THREE.Scene = new THREE.Scene();
 
 // Scene
-scene.add(camera);
-scene.add(new TestMap());
-var player = new Entity();
-player.position.set(0, 1, 0);
-scene.add(player);
+var titleMap = new Title();
 
-camera.position.z = 5;
+scene.add(camera);
+scene.add(titleMap);
+
+camera.position.y = 50;
+camera.rotation.x = -90 * Math.PI/180;
 
 // Render
 function render() {    
-    player.update(0);
     requestAnimationFrame(render);
     renderer.render(scene, camera);
+    titleMap.update(0);
 }
 
 Utils.WindowResize(renderer, camera);

@@ -7,48 +7,80 @@ var __extends = this.__extends || function (d, b) {
 };
 define(["require", "exports"], function(require, exports) {
     var Tiles = (function () {
-        function Tiles(path, count) {
+        function Tiles(path, ready) {
+            var _this = this;
+            this.ready = false;
             this.tiles = [];
 
-            for (var x = 1; x < count; x++) {
-                var texture = THREE.ImageUtils.loadTexture(path);
-                texture.anisotropy = 16;
-                texture.repeat.set(1 / count, 1);
-                texture.offset.set(x / count, 0);
+            // wanted to use a promise here but couldn't find a decent typescript lib
+            var textMaster = THREE.ImageUtils.loadTexture(path, undefined, function () {
+                // TODO: Make this handle more types of sprites maps
+                var image = textMaster.image, count = image.width / image.height;
 
-                this.tiles.push(new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ map: texture, color: 0xFFFFFF })));
-            }
+                for (var x = 1; x < count; x++) {
+                    // Yeah could have cloned here but three.js is throwing up
+                    var texture = THREE.ImageUtils.loadTexture(path);
+                    texture.anisotropy = 16;
+                    texture.repeat.set(1 / count, 1);
+                    texture.offset.set(x / count, 0);
+
+                    _this.tiles.push(new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ map: texture, color: 0xFFFFFF })));
+                }
+
+                _this.ready = true;
+
+                if (ready) {
+                    ready();
+                }
+            });
         }
         Tiles.prototype.random = function () {
             return this.tiles[Math.floor(Math.random() * this.tiles.length)].clone();
         };
         return Tiles;
     })();
+    exports.Tiles = Tiles;
+
+    var TileMap = (function (_super) {
+        __extends(TileMap, _super);
+        function TileMap(path) {
+            var _this = this;
+            _super.call(this);
+            this.tiles = new Tiles(path, function () {
+                return _this.tilesReady();
+            });
+        }
+        TileMap.prototype.tilesReady = function () {
+        };
+        return TileMap;
+    })(THREE.Object3D);
+    exports.TileMap = TileMap;
 
     var TestMap = (function (_super) {
         __extends(TestMap, _super);
         function TestMap(width, height) {
             if (typeof width === "undefined") { width = 10; }
             if (typeof height === "undefined") { height = 10; }
-            _super.call(this);
-            this.tiles = new Tiles("assets/textures/tilemap.png", 5);
-
+            _super.call(this, "assets/textures/tilemap.png");
+            this.width = width;
+            this.height = height;
+        }
+        TestMap.prototype.tilesReady = function () {
             var cube;
             var z = 0;
 
-            for (var x = 0; x < width; x++) {
-                for (var y = 0; y < height; y++) {
+            for (var x = 0; x < this.width; x++) {
+                for (var y = 0; y < this.height; y++) {
                     cube = this.tiles.random();
-                    z = (x === 0 || y === 0 || y === height - 1 || x === width - 1) ? 1 : 0;
+                    z = (x === 0 || y === 0 || y === this.height - 1 || x === this.width - 1) ? 1 : 0;
                     cube.position.set(x, z, y);
                     this.add(cube);
                 }
             }
-            this.position.set(-width / 2, 0, -height / 2);
-        }
-        return TestMap;
-    })(THREE.Object3D);
 
-    
-    return TestMap;
+            this.position.set(-this.width / 2, 0, -this.height / 2);
+        };
+        return TestMap;
+    })(TileMap);
+    exports.TestMap = TestMap;
 });

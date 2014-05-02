@@ -1,20 +1,20 @@
-define(["require", "exports", "utils", "testmap", "entity"], function(require, exports, Utils, TestMap, Entity) {
-    var renderer = new THREE.WebGLRenderer({ antialias: true }), camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000), scene = new THREE.Scene(), controls = new THREE.OrbitControls(camera);
+define(["require", "exports", "utils", "maps/title"], function(require, exports, Utils, Title) {
+    var renderer = new THREE.WebGLRenderer({ antialias: true }), camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000), scene = new THREE.Scene();
 
     // Scene
-    scene.add(camera);
-    scene.add(new TestMap());
-    var player = new Entity();
-    player.position.set(0, 1, 0);
-    scene.add(player);
+    var titleMap = new Title();
 
-    camera.position.z = 5;
+    scene.add(camera);
+    scene.add(titleMap);
+
+    camera.position.y = 50;
+    camera.rotation.x = -90 * Math.PI / 180;
 
     // Render
     function render() {
-        player.update(0);
         requestAnimationFrame(render);
         renderer.render(scene, camera);
+        titleMap.update(0);
     }
 
     Utils.WindowResize(renderer, camera);
