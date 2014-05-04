@@ -4,7 +4,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "../entity"], function(require, exports, Entity) {
+define(["require", "exports", "../tixel/entity"], function(require, exports, Entity) {
     var Avatar = (function (_super) {
         __extends(Avatar, _super);
         function Avatar() {

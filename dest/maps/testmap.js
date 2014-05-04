@@ -4,7 +4,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "../tiles"], function(require, exports, Tiles) {
+define(["require", "exports", "../tixel/tiles"], function(require, exports, Tiles) {
     var TestMap = (function (_super) {
         __extends(TestMap, _super);
         function TestMap(width, height) {

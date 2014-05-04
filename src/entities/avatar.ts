@@ -1,4 +1,4 @@
-import Entity = require("../entity");
+import Entity = require("../tixel/entity");
 
 class Avatar extends Entity {
     

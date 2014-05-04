@@ -4,7 +4,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "../tiles"], function(require, exports, Tiles) {
+define(["require", "exports", "../tixel/tiles"], function(require, exports, Tiles) {
     var TitleMap = (function (_super) {
         __extends(TitleMap, _super);
         function TitleMap() {
@@ -18,8 +18,8 @@ define(["require", "exports", "../tiles"], function(require, exports, Tiles) {
 
         TitleMap.prototype.update = function (delta) {
             this.children.forEach(function (tile) {
-                tile.rotation.x += (tile.position.x % 3 - 1) * 0.08;
-                tile.rotation.y += (tile.position.y % 3 - 1) * 0.08;
+                tile.rotation.x += (tile.position.x % 3 - 1) * 0.1;
+                tile.rotation.y += (tile.position.y % 3 - 1) * 0.1;
             });
         };
         return TitleMap;

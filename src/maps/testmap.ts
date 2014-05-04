@@ -1,4 +1,4 @@
-import Tiles = require("../tiles");
+import Tiles = require("../tixel/tiles");
 
 export class TestMap extends Tiles.TileMap {
     width:number;
