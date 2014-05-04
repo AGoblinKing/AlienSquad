@@ -9,4 +9,4 @@ export class AlienSquad extends Game {
     }
 }
 
-export var game = new AlienSquad();
+export var game = new AlienSquad(); 

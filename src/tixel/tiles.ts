@@ -20,7 +20,8 @@ export class Tiles {
                 texture.anisotropy = 16;
                 texture.repeat.set(1/count, 1);
                 texture.offset.set(x/count, 0);
-
+                
+                // The materials should be configurable
                 this.tiles.push(new THREE.Mesh(
                     new THREE.BoxGeometry(1,1,1),
                     new THREE.MeshBasicMaterial({map:texture, color: 0xFFFFFF})

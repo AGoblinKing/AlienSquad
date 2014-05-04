@@ -1,4 +1,4 @@
-/// <reference path="../ext/three.d.ts" />
+/// <reference path="../../ext/three.d.ts" />
 export function WindowResize(renderer:THREE.WebGLRenderer, camera:THREE.PerspectiveCamera) {
     function HandleResize() {
         renderer.setSize(window.innerWidth, window.innerHeight);

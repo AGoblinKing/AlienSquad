@@ -23,7 +23,7 @@ class Entity extends THREE.Object3D {
     unpack(args:any) {
         this.rotation.fromArray(args.rotation);
         this.position.fromArray(args.position);
-    }
+    } 
     
     pack():any {
         return {
