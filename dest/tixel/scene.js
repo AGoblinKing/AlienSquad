@@ -1,4 +1,3 @@
-/// <reference path="../../ext/three.d.ts" />
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -6,13 +5,36 @@ var __extends = this.__extends || function (d, b) {
     d.prototype = new __();
 };
 define(["require", "exports"], function(require, exports) {
-    // should be an interface
+    // Scene is kinda sorta an entity w/o components
     var Scene = (function (_super) {
         __extends(Scene, _super);
         function Scene() {
             _super.apply(this, arguments);
+            this.entities = [];
         }
-        Scene.prototype.update = function (delta) {
+        Scene.prototype.addEntity = function (entity) {
+            this.entities.push(entity);
+            this.add(entity);
+            entity.send("sceneAdded", this);
+        };
+
+        Scene.prototype.removeEntity = function (entity) {
+            var index = this.entities.indexOf(entity);
+            if (index !== -1) {
+                this.entities.splice(index, 1);
+                this.remove(entity);
+                entity.send("sceneRemoved", this);
+            }
+        };
+
+        Scene.prototype.send = function (name) {
+            var etc = [];
+            for (var _i = 0; _i < (arguments.length - 1); _i++) {
+                etc[_i] = arguments[_i + 1];
+            }
+            this.entities.forEach(function (entity) {
+                entity.send.apply(entity, [name].concat(etc));
+            });
         };
         return Scene;
     })(THREE.Scene);

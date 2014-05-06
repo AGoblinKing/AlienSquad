@@ -2,7 +2,7 @@
 import Scene = require("../tixel/scene");
 import Game = require("../tixel/game");
 import Entity = require("../tixel/entity");
-import Tiles = require("../tixel/tiles");
+import Tiles = require("../tixel/components/tiles");
 import Utils = require("../tixel/utils");
 
 class SubTitle extends Tiles.TileMap {
@@ -12,7 +12,7 @@ class SubTitle extends Tiles.TileMap {
     }
     
     mapLoaded() {
-        this.position.set(-this.width/2, 0, 0);
+        this.entity.position.set(-this.width/2, 0, 0);
     }
 }
 
@@ -24,11 +24,11 @@ class TitleMap extends Tiles.TileMap {
     }
     
     mapLoaded() {
-        this.position.set(-this.width/2, 0, -2);
+        this.entity.position.set(-this.width/2, 0, -2);
     }
     
     update(delta:number) {
-        this.children.forEach((tile) => {
+        this.entity.children.forEach((tile) => {
             tile.rotation.x += (tile.position.x % 3 - 1 )* 0.01 * delta;
             tile.rotation.y += (tile.position.y % 3 - 1 )* 0.01 * delta;
         });
@@ -41,27 +41,15 @@ class TitleMap extends Tiles.TileMap {
 }
 
 class Galvus extends Scene {
-    private updates:Entity[] = [];
-    
     constructor(game:Game) {
         super();
         
         this.add(game.camera);
-        this.addEntity(new TitleMap());
+        this.addEntity(new Entity.Entity(new TitleMap()));
         //this.addEntity(new SubTitle());
         
         game.camera.position.y = 10;
         game.camera.rotation.x = -90 * Math.PI/180;
-    }
-    
-    // considering this
-    addEntity(entity:Entity) {
-        this.add(entity);
-        this.updates.push(entity);
-    }
-    
-    update(delta:number) {
-        this.updates.forEach((entity) => entity.update(delta));
     }
 }
 

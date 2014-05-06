@@ -4,16 +4,18 @@ var gulp = require("gulp"),
     through = require("through2"),
     path = require("path"),
     shelljs = require("shelljs"),
-    static = require("node-static"),
-    topLevel;
+    static = require("node-static")
 
 function relativeRequire(basePath) {
     var stream = through.obj(function(file, enc, callback) {
-        if(file.isBuffer() && topLevel) {
-            var contents = file.contents.toString(enc),
-                defines = /define\(\[([\"A-z"\, \\\/]*)\]/.exec(contents);
+        if(file.isBuffer()) {
+            var splits = path.dirname(file.path).split("AlienSquad"),
+                topLevel = splits[0] + "AlienSquad\\" + splits[1].split("\\")[1];
             
-            if(defines) {
+            var contents = file.contents.toString(enc),
+                defines = /define\(\[([\"A-z"\, \.\\\/]*)\]/.exec(contents);
+            
+            if(defines && topLevel !== path.dirname(file.path)) {
                 var defs = defines[1].split(", "),
                     relpath = path.dirname(file.path.replace(topLevel, ""));
                 
@@ -24,8 +26,6 @@ function relativeRequire(basePath) {
                     return ('"' + relpath.substr(1) + "/" + define.substr(1)).replace(/\\/g, "/");
                 }).join(", ")), enc);
             }
-        } else {
-            if(!topLevel) topLevel = path.dirname(file.path);  
         }
         
         this.push(file);
@@ -48,9 +48,9 @@ gulp.task('default', ["compile"], function () {
 
 // transform the relative requires over to based on their path
 gulp.task('compile', function () {
-    shelljs.rm("-rf", "dest/*");
+    //shelljs.rm("-rf", "dest/*");
     return gulp.src('src/**/*.ts')
-        .pipe(typescript({ emitError: false, tmpDir: "..", target: "ES5", "module": "amd" }))
+        .pipe(typescript({ emitError: false, target: "ES5", "module": "amd" }))
         .pipe(relativeRequire("src/"))
         .pipe(gulp.dest('dest/'));
 });

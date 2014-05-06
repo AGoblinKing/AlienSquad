@@ -14,12 +14,10 @@ define(["require", "exports", "tixel/utils"], function(require, exports, Utils) 
             this.render();
         };
 
-        // update ASAP
         Game.prototype.update = function () {
             var _this = this;
-            //this.setImmediate :(
             var currentTime = (new Date()).getTime();
-            this.scene.update(currentTime - this.lastTime);
+            this.scene.send("update", currentTime - this.lastTime);
             this.lastTime = currentTime;
             setTimeout(function () {
                 return _this.update();

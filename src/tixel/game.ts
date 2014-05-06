@@ -26,11 +26,9 @@ class Game {
         this.render();
     }
     
-    // update ASAP
     update() {
-        //this.setImmediate :(
         var currentTime = (new Date()).getTime();
-        this.scene.update(currentTime - this.lastTime);
+        this.scene.send("update", currentTime - this.lastTime);
         this.lastTime = currentTime;
         setTimeout(() => this.update(), 0);
     }

@@ -4,7 +4,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "tixel/entity"], function(require, exports, Entity) {
+define(["require", "exports", "tixel/components/../entity"], function(require, exports, Entity) {
     var Tiles = (function () {
         function Tiles(path, ready) {
             var _this = this;
@@ -111,14 +111,14 @@ define(["require", "exports", "tixel/entity"], function(require, exports, Entity
             var pos = x + "," + y;
 
             if (this.tiles[pos]) {
-                this.remove(this.tiles[pos]);
+                this.entity.remove(this.tiles[pos]);
                 delete this.tiles[pos];
             }
 
             var tile = this.tileSet.get(type);
             if (tile) {
                 tile.position.set(x, 0, y);
-                this.add(tile);
+                this.entity.add(tile);
                 this.tiles[pos] = tile;
             }
         };
@@ -159,6 +159,6 @@ define(["require", "exports", "tixel/entity"], function(require, exports, Entity
             }
         };
         return TileMap;
-    })(Entity);
+    })(Entity.Component);
     exports.TileMap = TileMap;
 });

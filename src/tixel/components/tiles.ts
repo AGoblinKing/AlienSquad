@@ -1,5 +1,4 @@
-/// <reference path="../../ext/three.d.ts" />
-import Entity = require("entity");
+import Entity = require("../entity");
 
 export class Tiles { 
     tiles:THREE.Mesh[];
@@ -56,7 +55,7 @@ export class Tiles {
 
 enum TMS { Unloaded, TilesLoading, TilesLoaded, MapLoading, MapLoaded }
 
-export class TileMap extends Entity {
+export class TileMap extends Entity.Component {
     tileSet:Tiles;
     tiles: { [location:string]: THREE.Mesh } = {};
     
@@ -107,14 +106,14 @@ export class TileMap extends Entity {
         var pos = x + "," + y;
         
         if(this.tiles[pos]) {
-            this.remove(this.tiles[pos]);
+            this.entity.remove(this.tiles[pos]);
             delete this.tiles[pos];
         }
         
         var tile = this.tileSet.get(type);   
         if(tile) {
             tile.position.set(x, 0, y);
-            this.add(tile);
+            this.entity.add(tile);
             this.tiles[pos] = tile;
         }
     }

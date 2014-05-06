@@ -14,7 +14,6 @@ define(["require", "exports", "tixel/game", "scenes/galvus"], function(require, 
         }
         return AlienSquad;
     })(Game);
-    exports.AlienSquad = AlienSquad;
 
-    exports.game = new AlienSquad();
+    var game = new AlienSquad();
 });

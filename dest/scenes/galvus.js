@@ -4,7 +4,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "../tixel/scene", "../tixel/tiles"], function(require, exports, Scene, Tiles) {
+define(["require", "exports", "scenes/../tixel/scene", "scenes/../tixel/entity", "scenes/../tixel/components/tiles"], function(require, exports, Scene, Entity, Tiles) {
     var SubTitle = (function (_super) {
         __extends(SubTitle, _super);
         function SubTitle() {
@@ -12,7 +12,7 @@ define(["require", "exports", "../tixel/scene", "../tixel/tiles"], function(requ
             this.loadMap("assets/data/subtitles.map");
         }
         SubTitle.prototype.mapLoaded = function () {
-            this.position.set(-this.width / 2, 0, 0);
+            this.entity.position.set(-this.width / 2, 0, 0);
         };
         return SubTitle;
     })(Tiles.TileMap);
@@ -26,11 +26,11 @@ define(["require", "exports", "../tixel/scene", "../tixel/tiles"], function(requ
             this.loadMap("assets/data/galvus.map");
         }
         TitleMap.prototype.mapLoaded = function () {
-            this.position.set(-this.width / 2, 0, -2);
+            this.entity.position.set(-this.width / 2, 0, -2);
         };
 
         TitleMap.prototype.update = function (delta) {
-            this.children.forEach(function (tile) {
+            this.entity.children.forEach(function (tile) {
                 tile.rotation.x += (tile.position.x % 3 - 1) * 0.01 * delta;
                 tile.rotation.y += (tile.position.y % 3 - 1) * 0.01 * delta;
             });
@@ -46,26 +46,14 @@ define(["require", "exports", "../tixel/scene", "../tixel/tiles"], function(requ
         __extends(Galvus, _super);
         function Galvus(game) {
             _super.call(this);
-            this.updates = [];
 
             this.add(game.camera);
-            this.addEntity(new TitleMap());
+            this.addEntity(new Entity.Entity(new TitleMap()));
 
             //this.addEntity(new SubTitle());
             game.camera.position.y = 10;
             game.camera.rotation.x = -90 * Math.PI / 180;
         }
-        // considering this
-        Galvus.prototype.addEntity = function (entity) {
-            this.add(entity);
-            this.updates.push(entity);
-        };
-
-        Galvus.prototype.update = function (delta) {
-            this.updates.forEach(function (entity) {
-                return entity.update(delta);
-            });
-        };
         return Galvus;
     })(Scene);
 

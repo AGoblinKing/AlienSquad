@@ -1,7 +1,7 @@
 import Game = require("tixel/game");
 import TitleScene = require("scenes/galvus");
 
-export class AlienSquad extends Game {
+class AlienSquad extends Game {
     constructor() {
         super();
         this.scene = new TitleScene(this);
@@ -9,4 +9,4 @@ export class AlienSquad extends Game {
     }
 }
 
-export var game = new AlienSquad(); 
+var game = new AlienSquad(); 
