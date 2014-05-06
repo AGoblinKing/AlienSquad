@@ -11,7 +11,7 @@ class Game {
         0.1, 
         10000
     );
-    lastTime:number;
+    lastTime: number;
     scene: Scene;
     
     constructor() {
@@ -20,7 +20,11 @@ class Game {
     }
     
     // just a nice wrapper
-    start() { this.lastTime = (new Date()).getTime(); this.update(); this.render();}
+    start() { 
+        this.lastTime = (new Date()).getTime(); 
+        this.update(); 
+        this.render();
+    }
     
     // update ASAP
     update() {
