@@ -1,16 +1,5 @@
 import Txl = require("../tixel");
 
-class SubTitle extends Txl.TileMap {
-    constructor() {
-        super("assets/textures/tilemap.png");
-        this.loadMap("assets/data/subtitles.map");
-    }
-    
-    mapLoaded() {
-        this.entity.position.set(-this.width/2, 0, 0);
-    }
-}
-
 class TitleMap extends Txl.TileMap {
     constructor() {
         super("assets/textures/tilemap.png");
@@ -36,15 +25,9 @@ class TitleMap extends Txl.TileMap {
 }
 
 class Galvus extends Txl.Scene {
-    constructor(game:Txl.Game) {
+    constructor() {
         super();
-        
-        this.add(game.camera);
         this.addEntity(new Txl.Entity(new TitleMap()));
-        //this.addEntity(new SubTitle());
-        
-        game.camera.position.y = 10;
-        game.camera.rotation.x = -90 * Math.PI/180;
     }
 }
 

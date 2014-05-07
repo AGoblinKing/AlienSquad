@@ -5,18 +5,6 @@ var __extends = this.__extends || function (d, b) {
     d.prototype = new __();
 };
 define(["require", "exports", "scenes/../tixel"], function(require, exports, Txl) {
-    var SubTitle = (function (_super) {
-        __extends(SubTitle, _super);
-        function SubTitle() {
-            _super.call(this, "assets/textures/tilemap.png");
-            this.loadMap("assets/data/subtitles.map");
-        }
-        SubTitle.prototype.mapLoaded = function () {
-            this.entity.position.set(-this.width / 2, 0, 0);
-        };
-        return SubTitle;
-    })(Txl.TileMap);
-
     var TitleMap = (function (_super) {
         __extends(TitleMap, _super);
         function TitleMap() {
@@ -44,15 +32,9 @@ define(["require", "exports", "scenes/../tixel"], function(require, exports, Txl
 
     var Galvus = (function (_super) {
         __extends(Galvus, _super);
-        function Galvus(game) {
+        function Galvus() {
             _super.call(this);
-
-            this.add(game.camera);
             this.addEntity(new Txl.Entity(new TitleMap()));
-
-            //this.addEntity(new SubTitle());
-            game.camera.position.y = 10;
-            game.camera.rotation.x = -90 * Math.PI / 180;
         }
         return Galvus;
     })(Txl.Scene);

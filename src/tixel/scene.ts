@@ -1,10 +1,21 @@
 /// <reference path="../../ext/three.d.ts" />
+import Game = require("game");
+
 import Entity = require("entity");
 
 // Scene is kinda sorta an entity w/o components
 class Scene extends THREE.Scene {
     entities: Entity.Entity[] = [];
-
+    
+    get game():Game {
+        return Game.current;
+    }
+    
+    constructor() {
+        super();
+        this.add(this.game.camera);
+    }
+    
     addEntity(entity: Entity.Entity) {
         this.entities.push(entity);
         this.add(entity);

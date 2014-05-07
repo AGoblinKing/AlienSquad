@@ -6,6 +6,7 @@ define(["require", "exports", "tixel/utils"], function(require, exports, Utils) 
             this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
             Utils.WindowResize(this.renderer, this.camera);
             document.body.appendChild(this.renderer.domElement);
+            Game.current = this;
         }
         // just a nice wrapper
         Game.prototype.start = function () {

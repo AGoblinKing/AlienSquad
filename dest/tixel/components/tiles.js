@@ -41,9 +41,20 @@ define(["require", "exports", "tixel/components/../entity"], function(require, e
                 case " ":
                 case "x":
                     return undefined;
-                default:
+                case "2":
+                case "3":
+                case "4":
+                case "5":
+                case "6":
+                case "7":
+                case "8":
+                case "9":
+                case "1":
+                case "0":
                     var i = parseInt(item, 10);
                     return this.tiles[i].clone();
+                default:
+                    return undefined;
             }
         };
 

@@ -1,7 +1,7 @@
 /// <reference path="../../ext/three.d.ts" />
 import Utils = require("utils");
 import Scene = require("scene");
-
+    
 // Should people ever extend this? no :/
 class Game {
     renderer: THREE.WebGLRenderer = new THREE.WebGLRenderer({antialias:true});
@@ -13,10 +13,12 @@ class Game {
     );
     lastTime: number;
     scene: Scene;
+    static current: Game;
     
     constructor() {
         Utils.WindowResize(this.renderer, this.camera);
         document.body.appendChild(this.renderer.domElement);
+        Game.current = this;
     }
     
     // just a nice wrapper

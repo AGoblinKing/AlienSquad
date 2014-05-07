@@ -9,9 +9,9 @@ var gulp = require("gulp"),
 function relativeRequire(basePath) {
     var stream = through.obj(function(file, enc, callback) {
         if(file.isBuffer()) {
-            var splits = path.dirname(file.path).split("AlienSquad"),
-                topLevel = splits[0] + "AlienSquad\\" + splits[1].split("\\")[1];
-            
+            var splits = path.dirname(file.path).split("tmps"),
+                topLevel = splits[0] + "tmps\\" + splits[1].split("\\")[1];
+            console.log(topLevel);
             var contents = file.contents.toString(enc),
                 defines = /define\(\[([\"A-z"\, \.\\\/]*)\]/.exec(contents);
             
@@ -48,9 +48,9 @@ gulp.task('default', ["compile"], function () {
 
 // transform the relative requires over to based on their path
 gulp.task('compile', function () {
-    //shelljs.rm("-rf", "dest/*");
+    shelljs.rm("-rf", "../tmps/*");
     return gulp.src('src/**/*.ts')
-        .pipe(typescript({ emitError: false, target: "ES5", "module": "amd" }))
+        .pipe(typescript({ emitError: false, target: "ES5", tmpDir: "../tmps", "module": "amd" }))
         .pipe(relativeRequire("src/"))
         .pipe(gulp.dest('dest/'));
 });
