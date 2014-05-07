@@ -4,7 +4,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "scenes/../tixel/scene", "scenes/../tixel/entity", "scenes/../tixel/components/tiles"], function(require, exports, Scene, Entity, Tiles) {
+define(["require", "exports", "scenes/../tixel"], function(require, exports, Txl) {
     var SubTitle = (function (_super) {
         __extends(SubTitle, _super);
         function SubTitle() {
@@ -15,7 +15,7 @@ define(["require", "exports", "scenes/../tixel/scene", "scenes/../tixel/entity",
             this.entity.position.set(-this.width / 2, 0, 0);
         };
         return SubTitle;
-    })(Tiles.TileMap);
+    })(Txl.TileMap);
 
     var TitleMap = (function (_super) {
         __extends(TitleMap, _super);
@@ -34,13 +34,13 @@ define(["require", "exports", "scenes/../tixel/scene", "scenes/../tixel/entity",
                 tile.rotation.x += (tile.position.x % 3 - 1) * 0.01 * delta;
                 tile.rotation.y += (tile.position.y % 3 - 1) * 0.01 * delta;
             });
-            /*
+
             this.lerp += delta;
-            var dX = Utils.easing.easeInBounce(this.lerp, 0, -300, 3000);
-            this.position.y = dX;*/
+            var dX = Txl.Utils.easing.easeInBounce(this.lerp, 0, -300, 5000);
+            this.entity.position.y = dX;
         };
         return TitleMap;
-    })(Tiles.TileMap);
+    })(Txl.TileMap);
 
     var Galvus = (function (_super) {
         __extends(Galvus, _super);
@@ -48,14 +48,14 @@ define(["require", "exports", "scenes/../tixel/scene", "scenes/../tixel/entity",
             _super.call(this);
 
             this.add(game.camera);
-            this.addEntity(new Entity.Entity(new TitleMap()));
+            this.addEntity(new Txl.Entity(new TitleMap()));
 
             //this.addEntity(new SubTitle());
             game.camera.position.y = 10;
             game.camera.rotation.x = -90 * Math.PI / 180;
         }
         return Galvus;
-    })(Scene);
+    })(Txl.Scene);
 
     
     return Galvus;

@@ -4,7 +4,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "tixel/game", "scenes/galvus"], function(require, exports, Game, TitleScene) {
+define(["require", "exports", "tixel", "scenes/galvus"], function(require, exports, Txl, TitleScene) {
     var AlienSquad = (function (_super) {
         __extends(AlienSquad, _super);
         function AlienSquad() {
@@ -13,7 +13,7 @@ define(["require", "exports", "tixel/game", "scenes/galvus"], function(require, 
             this.start();
         }
         return AlienSquad;
-    })(Game);
+    })(Txl.Game);
 
     var game = new AlienSquad();
 });

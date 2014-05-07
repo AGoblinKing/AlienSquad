@@ -77,9 +77,11 @@ export class Entity extends THREE.Object3D {
     }
 
     send(name:string, ...etc:any[]) {
+        var args = [name].concat(etc);
         this.components.forEach((component) => {
-            component.send(name, etc);    
+            component.send.apply(component, args);    
         });
-        this.entities.forEach((entity) => { entity.send.apply(entity, [name].concat(etc)); } );
+        
+        this.entities.forEach((entity) => { entity.send.apply(entity, args); } );
     }  
 }

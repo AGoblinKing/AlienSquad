@@ -29,7 +29,7 @@ class TitleMap extends Txl.TileMap {
         });
     
         this.lerp += delta;
-        var dX = Txl.Utils.easing.easeInBounce(this.lerp, 0, -300, 3000);
+        var dX = Txl.Utils.easing.easeInBounce(this.lerp, 0, -300, 5000);
         this.entity.position.y = dX;
     } 
     lerp:number = 0;

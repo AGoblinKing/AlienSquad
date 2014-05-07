@@ -21,7 +21,8 @@ class Scene extends THREE.Scene {
     }
     
     send(name:string, ...etc:any[]) {
-        this.entities.forEach((entity) => { entity.send.apply(entity, [name].concat(etc)); } );
+        var args = [name].concat(etc);
+        this.entities.forEach((entity) => { entity.send.apply(entity, args); } );
     } 
 }
 

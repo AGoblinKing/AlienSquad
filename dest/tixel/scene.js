@@ -32,8 +32,9 @@ define(["require", "exports"], function(require, exports) {
             for (var _i = 0; _i < (arguments.length - 1); _i++) {
                 etc[_i] = arguments[_i + 1];
             }
+            var args = [name].concat(etc);
             this.entities.forEach(function (entity) {
-                entity.send.apply(entity, [name].concat(etc));
+                entity.send.apply(entity, args);
             });
         };
         return Scene;
