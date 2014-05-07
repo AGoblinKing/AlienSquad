@@ -8,8 +8,12 @@ class BaseMap extends Txl.TileMap {
     }
     
     mapLoaded() {
-        this.entity.position.set(-this.width/2, 0, -this.height/2);
+        this.entity.position.set(-this.width/2 + 0.5, 0, -this.height/2 + 0.5);
     }
+}
+
+class Mover extends Txl.Component {
+    
 }
 
 class Man extends Txl.Entity {

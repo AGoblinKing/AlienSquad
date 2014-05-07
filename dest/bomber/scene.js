@@ -13,10 +13,18 @@ define(["require", "exports", "bomber/../tixel"], function(require, exports, Txl
             this.loadMap("src/bomber/base.map");
         }
         BaseMap.prototype.mapLoaded = function () {
-            this.entity.position.set(-this.width / 2, 0, -this.height / 2);
+            this.entity.position.set(-this.width / 2 + 0.5, 0, -this.height / 2 + 0.5);
         };
         return BaseMap;
     })(Txl.TileMap);
+
+    var Mover = (function (_super) {
+        __extends(Mover, _super);
+        function Mover() {
+            _super.apply(this, arguments);
+        }
+        return Mover;
+    })(Txl.Component);
 
     var Man = (function (_super) {
         __extends(Man, _super);
