@@ -1,7 +1,7 @@
-import Game = require("tixel/game");
+import Txl = require("tixel");
 import TitleScene = require("scenes/galvus");
 
-class AlienSquad extends Game {
+class AlienSquad extends Txl.Game {
     constructor() {
         super();
         this.scene = new TitleScene(this);
