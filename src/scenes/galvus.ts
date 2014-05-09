@@ -1,6 +1,6 @@
 import Txl = require("../tixel");
 
-class TitleMap extends Txl.TileMap {
+class TitleMap extends Txl.c.TileMap {
     constructor() {
         super("assets/textures/tilemap.png");
  
@@ -22,6 +22,12 @@ class TitleMap extends Txl.TileMap {
         this.entity.position.y = dX;
     } 
     lerp:number = 0;
+}
+
+class Bomber extends Txl.Component {
+    // if there already is input, don't add another.. dislike instantiating it tho
+    // TODO: better way of allowing sharing of component instances and setting arguments to them
+    requires:Txl.Component[] =  [new Txl.c.Input()];
 }
 
 class Galvus extends Txl.Scene {

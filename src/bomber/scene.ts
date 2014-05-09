@@ -1,6 +1,6 @@
 import Txl = require("../tixel");
 
-class BaseMap extends Txl.TileMap {
+class BaseMap extends Txl.c.TileMap {
     constructor() {
         super("assets/textures/tilemap.png");
         this.loadMap("src/bomber/base.map");    

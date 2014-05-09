@@ -4,8 +4,16 @@ export class Component {
     entity: Entity;
     // We can have ALL THE THINGS!
     [key:string]:any;
+    requires: Component[] = [];
     
-    constructor() { this.send("created"); }
+    constructor() { 
+        this.send("created"); 
+    }
+   
+    added() {
+        this.requires.forEach(this.entity.addComponent.bind(this.entity));   
+    }
+    
     send(name:string, ...etc:any[]) {
         if(this[name]) {
             this[name].apply(this, etc);   
@@ -20,11 +28,9 @@ export class Entity extends THREE.Object3D {
     entities: Entity[] = [];
     parent: Entity;
     
-    constructor(...components:Component[]) { 
+    constructor(...components:Component[]) {
         super();
-        components.forEach((component) => {
-            this.addComponent(component);    
-        });
+        components.forEach(this.addComponent.bind(this));    
     }
     
     addEntity(entity:Entity) {
@@ -46,19 +52,26 @@ export class Entity extends THREE.Object3D {
         }
     }
     
-    addComponent(component:Component) {
-        this.components.push(component);
-        component.entity = this;
-        component.send("added");
-        this.send("addedComponent", component);
+    private checkInstances(type:typeof Component) {
+        return !this.components.every((component:Component) => {
+            return component.constructor === type;
+        });  
     }
     
-    // typescript doesn't let me use generics at run time
-    getComponent<T extends Component>(type:(...etc:any[]) => Component):T {
-        var toReturn:T;
+    addComponent(component:Component) {
+        if(this.checkInstances(<typeof Component>component.constructor)) {
+            this.components.push(component);
+            component.entity = this;
+            component.send("added");
+            this.send("addedComponent", component); 
+        }   
+    }
+    
+    getComponent(type:typeof Component): Component {
+        var toReturn:Component;
         var found = this.components.some((component) => {
-            if(typeof component === type.toString()) {
-                toReturn = <T>component;
+            if(component instanceof type) {
+                toReturn = component;
                 return true;  
             } else {
                 return false;  

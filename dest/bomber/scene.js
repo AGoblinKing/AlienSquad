@@ -9,7 +9,6 @@ define(["require", "exports", "bomber/../tixel"], function(require, exports, Txl
         __extends(BaseMap, _super);
         function BaseMap() {
             _super.call(this, "assets/textures/tilemap.png");
-
             this.loadMap("src/bomber/base.map");
         }
         BaseMap.prototype.mapLoaded = function () {
