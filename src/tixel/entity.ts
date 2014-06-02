@@ -59,12 +59,10 @@ export class Entity extends THREE.Object3D {
     }
     
     addComponent(component:Component) {
-        if(this.checkInstances(<typeof Component>component.constructor)) {
-            this.components.push(component);
-            component.entity = this;
-            component.send("added");
-            this.send("addedComponent", component); 
-        }   
+        this.components.push(component);
+        component.entity = this;
+        component.send("added");
+        this.send("addedComponent", component);
     }
     
     getComponent(type:typeof Component): Component {

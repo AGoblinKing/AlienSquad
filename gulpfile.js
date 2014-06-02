@@ -4,14 +4,14 @@ var gulp = require("gulp"),
     through = require("through2"),
     path = require("path"),
     shelljs = require("shelljs"),
-    static = require("node-static")
+    static = require("node-static");
 
 function relativeRequire(basePath) {
     var stream = through.obj(function(file, enc, callback) {
         if(file.isBuffer()) {
             var splits = path.dirname(file.path).split("tmps"),
                 topLevel = splits[0] + "tmps\\" + splits[1].split("\\")[1];
-            console.log(topLevel);
+            
             var contents = file.contents.toString(enc),
                 defines = /define\(\[([\"A-z"\, \.\\\/]*)\]/.exec(contents);
             

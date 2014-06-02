@@ -28,7 +28,18 @@ define(["require", "exports", "scenes/../tixel"], function(require, exports, Txl
             this.entity.position.y = dX;
         };
         return TitleMap;
-    })(Txl.TileMap);
+    })(Txl.c.TileMap);
+
+    var Bomber = (function (_super) {
+        __extends(Bomber, _super);
+        function Bomber() {
+            _super.apply(this, arguments);
+            // if there already is input, don't add another.. dislike instantiating it tho
+            // TODO: better way of allowing sharing of component instances and setting arguments to them
+            this.requires = [new Txl.c.Input()];
+        }
+        return Bomber;
+    })(Txl.Component);
 
     var Galvus = (function (_super) {
         __extends(Galvus, _super);

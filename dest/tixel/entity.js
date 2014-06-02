@@ -8,8 +8,13 @@ var __extends = this.__extends || function (d, b) {
 define(["require", "exports"], function(require, exports) {
     var Component = (function () {
         function Component() {
+            this.requires = [];
             this.send("created");
         }
+        Component.prototype.added = function () {
+            this.requires.forEach(this.entity.addComponent.bind(this.entity));
+        };
+
         Component.prototype.send = function (name) {
             var etc = [];
             for (var _i = 0; _i < (arguments.length - 1); _i++) {
@@ -35,13 +40,10 @@ define(["require", "exports"], function(require, exports) {
             for (var _i = 0; _i < (arguments.length - 0); _i++) {
                 components[_i] = arguments[_i + 0];
             }
-            var _this = this;
             _super.call(this);
             this.components = [];
             this.entities = [];
-            components.forEach(function (component) {
-                _this.addComponent(component);
-            });
+            components.forEach(this.addComponent.bind(this));
         }
         Entity.prototype.addEntity = function (entity) {
             this.entities.push(entity);
@@ -62,6 +64,12 @@ define(["require", "exports"], function(require, exports) {
             }
         };
 
+        Entity.prototype.checkInstances = function (type) {
+            return !this.components.every(function (component) {
+                return component.constructor === type;
+            });
+        };
+
         Entity.prototype.addComponent = function (component) {
             this.components.push(component);
             component.entity = this;
@@ -69,11 +77,10 @@ define(["require", "exports"], function(require, exports) {
             this.send("addedComponent", component);
         };
 
-        // typescript doesn't let me use generics at run time
         Entity.prototype.getComponent = function (type) {
             var toReturn;
             var found = this.components.some(function (component) {
-                if (typeof component === type.toString()) {
+                if (component instanceof type) {
                     toReturn = component;
                     return true;
                 } else {

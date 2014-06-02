@@ -3,16 +3,17 @@ import Txl = require("../tixel");
 class BaseMap extends Txl.c.TileMap {
     constructor() {
         super("assets/textures/tilemap.png");
-        this.loadMap("src/bomber/base.map");    
+    }
+    
+    added() {
+        console.log("loaded");
+        this.loadMap("src/bomber/base.map"); 
+        //Txl.Component.prototype.added.call(this);
     }
     
     mapLoaded() {
         this.entity.position.set(-this.width/2 + 0.5, 0, -this.height/2 + 0.5);
     }
-}
-
-class Mover extends Txl.Component {
-    
 }
 
 class Man extends Txl.Entity {

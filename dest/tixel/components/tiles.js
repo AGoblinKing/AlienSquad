@@ -127,6 +127,7 @@ define(["require", "exports", "tixel/components/../entity"], function(require, e
             }
 
             var tile = this.tileSet.get(type);
+
             if (tile) {
                 tile.position.set(x, 0, y);
                 this.entity.add(tile);

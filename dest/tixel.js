@@ -4,28 +4,13 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "tixel/game", "tixel/scene", "tixel/utils", "tixel/entity", "tixel/components/tiles"], function(require, exports, Game, Scene, Utils, iEntity, iTiles) {
+define(["require", "exports", "tixel/game", "tixel/scene", "tixel/utils", "tixel/components", "tixel/entity"], function(require, exports, Game, Scene, Utils, c, iEntity) {
     exports.Game = Game;
     exports.Scene = Scene;
     exports.Utils = Utils;
+    exports.c = c;
 
     // setting up a nice wrapper
-    var TileMap = (function (_super) {
-        __extends(TileMap, _super);
-        function TileMap() {
-            _super.apply(this, arguments);
-        }
-        return TileMap;
-    })(iTiles.TileMap);
-    exports.TileMap = TileMap;
-    var Tiles = (function (_super) {
-        __extends(Tiles, _super);
-        function Tiles() {
-            _super.apply(this, arguments);
-        }
-        return Tiles;
-    })(iTiles.Tiles);
-    exports.Tiles = Tiles;
     var Entity = (function (_super) {
         __extends(Entity, _super);
         function Entity() {

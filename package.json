@@ -1,0 +1,26 @@
+{
+  "name": "AlienSquad",
+  "version": "0.0.0",
+  "description": "Alien Squad\r ===========\r WebRTC driven arcade shoot'em up.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JoshGalvin/AlienSquad.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoshGalvin/AlienSquad/issues"
+  },
+  "homepage": "https://github.com/JoshGalvin/AlienSquad",
+  "devDependencies": {
+    "gulp": "^3.7.0",
+    "gulp-tsc": "^0.9.0",
+    "node-static": "^0.7.3",
+    "shelljs": "^0.3.0",
+    "through2": "^0.4.2"
+  }
+}

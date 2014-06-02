@@ -9,21 +9,18 @@ define(["require", "exports", "bomber/../tixel"], function(require, exports, Txl
         __extends(BaseMap, _super);
         function BaseMap() {
             _super.call(this, "assets/textures/tilemap.png");
-            this.loadMap("src/bomber/base.map");
         }
+        BaseMap.prototype.added = function () {
+            console.log("loaded");
+            this.loadMap("src/bomber/base.map");
+            //Txl.Component.prototype.added.call(this);
+        };
+
         BaseMap.prototype.mapLoaded = function () {
             this.entity.position.set(-this.width / 2 + 0.5, 0, -this.height / 2 + 0.5);
         };
         return BaseMap;
-    })(Txl.TileMap);
-
-    var Mover = (function (_super) {
-        __extends(Mover, _super);
-        function Mover() {
-            _super.apply(this, arguments);
-        }
-        return Mover;
-    })(Txl.Component);
+    })(Txl.c.TileMap);
 
     var Man = (function (_super) {
         __extends(Man, _super);
