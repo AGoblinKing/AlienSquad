@@ -189,6 +189,15 @@ define(["require", "exports"], function(require, exports) {
         }
     };
 
+    function LoadImage(path, callback) {
+        var img = document.createElement("img");
+        img.src = path;
+        img.onload = function () {
+            callback(img);
+        };
+    }
+    exports.LoadImage = LoadImage;
+
     function GenerateGUID() {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);

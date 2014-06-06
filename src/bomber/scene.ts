@@ -21,6 +21,7 @@ class Man extends Txl.Entity {
         // add all my components here
         super();    
     }
+    
 }
 
 class Bomber extends Txl.Scene {

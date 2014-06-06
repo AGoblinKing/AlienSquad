@@ -141,6 +141,13 @@ export var easing = {
 	}
 };
 
+export function LoadImage(path:string, callback:(img: HTMLImageElement)=>void) {
+    var img = <HTMLImageElement>document.createElement("img");
+    img.src = path;
+    img.onload = () => {
+        callback(img);
+    };
+}
 
 export function GenerateGUID():String {
     function s4() {

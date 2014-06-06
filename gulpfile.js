@@ -50,7 +50,7 @@ gulp.task('default', ["compile"], function () {
 gulp.task('compile', function () {
     shelljs.rm("-rf", "../tmps/*");
     return gulp.src('src/**/*.ts')
-        .pipe(typescript({ emitError: false, target: "ES5", tmpDir: "../tmps", "module": "amd" }))
+        .pipe(typescript({ emitError: false, target: "ES5", tmpDir: "../tmps", "module": "amd", sourceMap : true }))
         .pipe(relativeRequire("src/"))
         .pipe(gulp.dest('dest/'));
 });

@@ -4,20 +4,13 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-define(["require", "exports", "tixel", "bomber/scene"], function(require, exports, Txl, BomberScene) {
+define(["require", "exports", "tixel", "rpg/scene"], function(require, exports, Txl, RPGScene) {
     var AlienSquad = (function (_super) {
         __extends(AlienSquad, _super);
         function AlienSquad() {
             _super.call(this);
-            this.scene = new BomberScene();
+            this.scene = new RPGScene();
             this.start();
-
-            /*
-            setTimeout(() => {
-            this.scene = new BomberScene();
-            }, 7000);*/
-            this.camera.position.y = 14;
-            this.camera.rotation.x = -90 * Math.PI / 180;
         }
         return AlienSquad;
     })(Txl.Game);
